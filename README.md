@@ -12,10 +12,36 @@ NFTMarket is a project modified from opensea-clone. It has better UI and functio
 5. Resell your NFT (Coming Soon)
 
 # :desktop_computer: Quick Start
-1. 
-2. 
-3. 
-4. 
+Install the dependencies
+```
+npm install
+```
+Paste your private key in *.secret*
+
+Paste your Infura project ID in *hardhat.config.js*
+
+Paste your Infura project ID in *index.js* 
+```
+const provider = new ethers.providers.JsonRpcProvider("https://rinkeby.infura.io/v3/YOUR_PROJECT_ID");
+```
+Deploy NFT Token and NFT Market contracts in **Rinkeby Testnet**
+```
+npx hardhat run --network rinkeby scripts/deploy.js
+```
+If you want to deploy your contracts in **localhost**
+```
+npx hardhat node
+npx hardhat run scripts/deploy.js --network localhost 
+```
+Paste two contract address in *config.js*
+```
+export const nftaddress = "NFT_CONTRACT_ADDRESS"
+export const nftmarketaddress = "NFT_MARKET_CONTRACT_ADDRESS"
+```
+Run the app
+```
+npx next dev
+```
 
 # :scroll: Reference
 https://github.com/davepartner/opensea-clone
