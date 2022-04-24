@@ -10,6 +10,8 @@ import Market from '../contracts/abi/NFTMarket_ABI.json';
 
 export default function Home() {
   const [nfts, setNfts] = useState([]);
+  const [error, setError] = useState('');
+  const [isError, setIsError] = useState();
   const [loadingState, setLoadingState] = useState('not-loaded');
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function Home() {
   }, []);
 
   async function loadNFTs(){
-    const provider = new ethers.providers.JsonRpcProvider(""); // Enter the ENDPOINTS "https://rinkeby.infura.io/v3/...""
+    const provider = new ethers.providers.JsonRpcProvider("https://rinkeby.infura.io/v3/81c8d6ef79c3407099ca10852eed30ee"); // Enter the ENDPOINTS "https://rinkeby.infura.io/v3/...""
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider);
 
@@ -49,21 +51,30 @@ export default function Home() {
 
     const signer = provider.getSigner();
     const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
-
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
-
-    const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
-      value: price
-    });
-    await transaction.wait();
-
-    loadNFTs()
+    
+    try{
+      const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
+        value: price
+      });
+      await transaction.wait();
+      loadNFTs()
+    }catch(e){
+      if(e.code === "INSUFFICIENT_FUNDS"){
+        setIsError(true);
+        setError("Insufficient Funds");
+      }else if(e.code == "4001"){
+        setIsError(true);
+        setError("User Denied Transaction");
+      }
+    }
+   
   }
 
 
   if(loadingState === 'loaded' && !nfts.length) return(
     <div className="justify-center">
-      <div className="p-12 text-center bg-rose-50 text-black">
+      <div className="p-12 text-center bg-blue-100 text-black">
         <h2 className="font-semibold text-4xl m-20">Create Your NFTs Now</h2>
         <a href="/create-item">
           <button
@@ -83,7 +94,15 @@ export default function Home() {
   return (
     <div className="flex justify-center">
       <div>
-        <div className="p-12 text-center bg-rose-50 text-black">
+      {isError && 
+        <div class="bg-red-100 rounded-lg py-5 px-6 m-px text-base text-red-700 inline-flex items-center w-full" role="alert">
+          <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="times-circle" class="w-4 h-4 mr-2 fill-current" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path fill="currentColor" d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm121.6 313.1c4.7 4.7 4.7 12.3 0 17L338 377.6c-4.7 4.7-12.3 4.7-17 0L256 312l-65.1 65.6c-4.7 4.7-12.3 4.7-17 0L134.4 338c-4.7-4.7-4.7-12.3 0-17l65.6-65-65.6-65.1c-4.7-4.7-4.7-12.3 0-17l39.6-39.6c4.7-4.7 12.3-4.7 17 0l65 65.7 65.1-65.6c4.7-4.7 12.3-4.7 17 0l39.6 39.6c4.7 4.7 4.7 12.3 0 17L312 256l65.6 65.1z"></path>
+          </svg>
+          {error}
+        </div>
+      }
+        <div className="p-12 text-center bg-blue-100 text-black">
           <h2 className="font-semibold text-4xl m-20">Create Your NFTs Now</h2>
           <a href="/create-item">
           <button
