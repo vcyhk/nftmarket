@@ -102,6 +102,26 @@ export default function CreateItem() {
         <div className="flex justify-center">
             <div className="w-1/2 flex flex-col pb-12">
                 <h1 className="font-semibold text-4xl my-10">Create Your Item</h1>
+                <ol class="border-l border-gray-300 mb-5">
+                <li>
+                    <div class="flex flex-start items-center pt-3">
+                    <div class="bg-gray-300 w-2 h-2 rounded-full -ml-1 mr-3"></div>
+                    </div>
+                    <div class="mt-0.5 ml-4 mb-6">
+                    <h2 class="text-gray-800 font-semibold text-2xl my-1">Step 1</h2>
+                    <p class="text-gray-500 mb-3">Enter NFT name, description and price. <br/>Then, upload the file of your NFT. <br/>Click "Create NFT"</p>
+                    </div>
+                </li>
+                <li>
+                    <div class="flex flex-start items-center pt-2">
+                    <div class="bg-gray-300 w-2 h-2 rounded-full -ml-1 mr-3"></div>
+                    </div>
+                    <div class="mt-0.5 ml-4 mb-6">
+                    <h2 class="text-gray-800 font-semibold text-2xl my-1">Step 2</h2>
+                    <p class="text-gray-500 mb-3">Confirm two transactions. The first payment is for creating the NFT. The second payment is for listing the NFT in the market. It is a fixed price: 0.005 ETH.</p>
+                    </div>
+                </li>
+                </ol>
                 <input 
                     placeholder="Item Name"
                     className="mt-2 border rounded p-4"
