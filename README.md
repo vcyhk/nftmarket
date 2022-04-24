@@ -2,11 +2,11 @@
 <img src="https://i.imgur.com/VJjjGXX.jpg">
 
 
-## Installation
+## :desktop_computer: Installation 
 1. 
 2. 
 3. 
 4. 
 
-## Reference
+## :scroll: Reference
 https://github.com/davepartner/opensea-clone
