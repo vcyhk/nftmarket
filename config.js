@@ -1,0 +1,2 @@
+export const nftaddress = "0xd3142dC4544bB3b2fd3E6FDa045FCa8ca090Dcd2" //The contract address of NFT(ERC721), change it if you deploy a new contract
+export const nftmarketaddress = "0x29BB52DCf58b49f711E75eBb711cFddC72e12F37"//The contract address of NFT Market, change it if you deploy a new contract
