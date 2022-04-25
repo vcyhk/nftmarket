@@ -59,7 +59,7 @@ export default function Home() {
       });
       await transaction.wait();
       loadNFTs()
-    }catch(e){
+    }catch(e){ //check and display error msg
       if(e.code === "INSUFFICIENT_FUNDS"){
         setIsError(true);
         setError("Insufficient Funds");
