@@ -16,6 +16,12 @@ Install the dependencies
 ```
 npm install
 ```
+Run the app
+```
+npx next dev
+```
+
+## Deploy New Contracts
 Paste your private key in *.secret*
 
 Paste your Infura project ID in *hardhat.config.js*
@@ -38,10 +44,7 @@ Paste two contract address in *config.js*
 export const nftaddress = "NFT_CONTRACT_ADDRESS"
 export const nftmarketaddress = "NFT_MARKET_CONTRACT_ADDRESS"
 ```
-Run the app
-```
-npx next dev
-```
+
 
 # :scroll: Reference
 https://github.com/davepartner/opensea-clone
