@@ -19,7 +19,8 @@ export default function Home() {
   }, []);
 
   async function loadNFTs(){
-    const provider = new ethers.providers.JsonRpcProvider("https://rinkeby.infura.io/v3/81c8d6ef79c3407099ca10852eed30ee"); // Enter the ENDPOINTS "https://rinkeby.infura.io/v3/...""
+    // You can change the ENDPOINTS "https://rinkeby.infura.io/v3/...""
+    const provider = new ethers.providers.JsonRpcProvider("https://rinkeby.infura.io/v3/81c8d6ef79c3407099ca10852eed30ee"); 
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider);
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, provider);
 
@@ -44,6 +45,8 @@ export default function Home() {
     setNfts(items);
     setLoadingState('loaded');
   }
+
+  //Buy the NFT which haven't sold
   async function buyNFT(nft){
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
@@ -53,6 +56,7 @@ export default function Home() {
     const contract = new ethers.Contract(nftmarketaddress, Market.abi, signer);
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
     
+    //Handle the error
     try{
       const transaction = await contract.createMarketSale(nftaddress, nft.tokenId, {
         value: price

@@ -5,10 +5,13 @@
 // npx hardhat node
 // npx hardhat run scripts/deploy.js --network localhost 
 
+//You can use other network to deploy
+//e.g. Ethereum - Mainnet , Ethereum - Ropsten , Polygon - Mumbai , ...
+
 const hre = require("hardhat");
 
 async function main() {
-  // We get the contract to deploy
+  //get the contract to deploy
   const NFTMarket = await hre.ethers.getContractFactory("NFTMarket");
   const nftMarket = await NFTMarket.deploy();
 

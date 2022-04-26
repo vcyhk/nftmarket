@@ -37,8 +37,9 @@ export default function CreateItem() {
         }
     }
 
+    //Create the item
     async function createItem(){
-        const {name, description, price} = formInput; //get the value from the form input
+        const {name, description, price} = formInput; //get the value from the input
         
         //validation
         if(!name || !description || !price || !fileUrl) {
@@ -51,15 +52,14 @@ export default function CreateItem() {
 
         try{
             const added = await client.add(data)
-            const url = `https://ipfs.infura.io/ipfs/${added.path}`
-            //pass the url to save it on testnet after it has been uploaded to IPFS
+            const url = `https://ipfs.infura.io/ipfs/${added.path}` //pass the url to save it on testnet after it has been uploaded to IPFS
             createSale(url)
         }catch(error){
             console.log(`Error uploading file: `, error)
         }
     }
 
-    //2. List item for sale
+    //List item for sale
     async function createSale(url){
         const web3Modal = new Web3Modal();
         const connection = await web3Modal.connect();
@@ -71,8 +71,7 @@ export default function CreateItem() {
         let transaction = await contract.createToken(url);
         let tx = await transaction.wait()
 
-        //get the tokenId from the transaction above
-        //returned events array, the first item from that event is the event, third item is the token id.
+        //get the tokenId from the transaction above and returned events array
         console.log('Transaction: ',tx)
         console.log('Transaction events: ',tx.events[0])
         let event = tx.events[0]

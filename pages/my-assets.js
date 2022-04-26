@@ -21,6 +21,7 @@ export default function MyAssets() {
     loadNFTs()
   }, [])
 
+  //Load owned item
   async function loadNFTs() {
     const web3Modal = new Web3Modal()
     const connection = await web3Modal.connect()
@@ -29,7 +30,7 @@ export default function MyAssets() {
       
     const marketContract = new ethers.Contract(nftmarketaddress, Market.abi, signer)
     const tokenContract = new ethers.Contract(nftaddress, NFT.abi, provider)
-    const data = await marketContract.fetchMyNFTs()
+    const data = await marketContract.fetchMyNFTs() //fetch the nft
     
     const items = await Promise.all(data.map(async i => {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
@@ -49,12 +50,9 @@ export default function MyAssets() {
     setLoadingState('loaded') 
   }
 
+  //display nft detail
   async function setSaleDetail(i){
     setNftListDetail({name: nfts[i].name, price: nfts[i].price, seller: nfts[i].seller, owner:nfts[i].owner});
-  }
-
-  async function checkNft(){
-
   }
 
   if (loadingState === 'loaded' && !nfts.length) return (<h1 className="py-10 px-20 text-3xl flex justify-center">No items to display</h1>)
@@ -107,7 +105,6 @@ export default function MyAssets() {
                         <div
                           class="modal-footer flex flex-shrink-0 flex-wrap items-center justify-end p-4 border-t border-gray-200 rounded-b-md">
                           <button
-                            onClick={checkNft}
                             disabled
                             className="font-bold mx-10 bg-neutral-200 text-neutral-600 rounded p-4 shadow-md"
                             >YOU ARE NOT ALLOWED TO SELL IT NOW
@@ -129,7 +126,6 @@ export default function MyAssets() {
                       <p className="mx-10 text-xl text-black">Owner: {nftListDetail.owner}</p>
                     </div>
                     <button
-                    onClick={checkNft}
                     disabled
                     className="font-bold mx-10 bg-neutral-200 text-neutral-600 rounded p-4 shadow-lg"
                     >YOU ARE NOT ALLOWED TO SELL IT NOW</button>

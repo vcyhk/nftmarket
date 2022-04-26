@@ -7,17 +7,21 @@ export default function MyApp({ Component, pageProps }){
 
   const [account, setAccounts] = useState("Connect")
   
-
   useEffect(() => {
     loadAccount();
   }, []);
 
-  //Show and update the adress of Metamask
+  //Show and update the address of Metamask
   async function loadAccount() {
-    const web3Modal = new Web3Modal();
-    const connection = await web3Modal.connect();
-    const account = (connection.selectedAddress).toString();
-    setAccounts((account.substring(0,4)+ '...'+ account.substring(account.length - 4)));
+    try{
+      const web3Modal = new Web3Modal();
+      const connection = await web3Modal.connect();
+      const account = (connection.selectedAddress).toString();
+      setAccounts((account.substring(0,4)+ '...'+ account.substring(account.length - 4)));
+    }catch{
+
+    }
+    
   }
 
   return (
@@ -47,8 +51,8 @@ export default function MyApp({ Component, pageProps }){
             </div>
           </div>
           <div className="flex-shrink-0 flex items-center">
-            <button onClick={loadAccount} className="bg-slate-100 mx-5 rounded p-2.5 shadow-md text-slate-500 flex items-center">
-              <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg" style={{ width:20, heigh:20, margin:5 }}/> 
+            <button onClick={loadAccount} className="bg-slate-100 mx-5 rounded py-3 px-4 shadow-md text-slate-500 flex items-center">
+              <img src="https://raw.githubusercontent.com/MetaMask/brand-resources/master/SVG/metamask-fox.svg" className="mr-1" style={{ width:20, heigh:20, }}/> 
               {account}
             </button>
           </div>

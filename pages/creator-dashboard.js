@@ -33,7 +33,7 @@ export default function CreatorDashboard() {
       const tokenUri = await tokenContract.tokenURI(i.tokenId)
       const meta = await axios.get(tokenUri)
       let price = ethers.utils.formatUnits(i.price.toString(), 'ether')
-      let item = {
+      let item = { //get the item detail
         price,
         tokenId: i.tokenId.toNumber(),
         seller: i.seller,
@@ -43,7 +43,7 @@ export default function CreatorDashboard() {
       }
       return item
     }))
-    /* Create a array of items that have been sold */
+    //Create a array of items that have been sold
     const soldItems = items.filter(i => i.sold)
     setSold(soldItems)
     setNfts(items)

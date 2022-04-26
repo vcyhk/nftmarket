@@ -1,3 +1,4 @@
+//Display FAQ
 export default function Support() {
   
   return (
