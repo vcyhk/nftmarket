@@ -21,7 +21,7 @@ Run the app
 npx next dev
 ```
 
-## Deploy New Contracts
+## How To Deploy New Contracts?
 Paste your private key in *.secret*
 
 Paste your Infura project ID in *hardhat.config.js*
